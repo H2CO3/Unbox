@@ -21,7 +21,8 @@
 	NSFileManager *fileManager;
 }
 
-- (NSDictionary *) handleMessageNamed:(NSString *)name userInfo:(NSDictionary *)info;
+- (NSDictionary *)handleMessageNamed:(NSString *)name userInfo:(NSDictionary *)info;
+- (void)dummy;
 
 @end
 

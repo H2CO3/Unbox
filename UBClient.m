@@ -13,20 +13,26 @@ static id shared = NULL;
 
 @implementation UBClient
 
-+ (id) sharedInstance {
-	if (shared == NULL) {
++ (id)sharedInstance
+{
+	if (shared == NULL)
 		shared = [[self alloc] init];
-	}
+
 	return shared;
 }
 
-- (id) init {
-	self = [super init];
-	center = [CPDistributedMessagingCenter centerNamed:@"org.h2co3.unbox"];
+- (id)init
+{
+	if ((self = [super init]))
+	{
+		center = [CPDistributedMessagingCenter centerNamed:@"org.h2co3.unbox"];
+	}
+
 	return self;
 }
 
-- (NSString *) temporaryFile {
+- (NSString *)temporaryFile
+{
 	CFUUIDRef uuidRef = CFUUIDCreate(NULL);
 	CFStringRef uuid = CFUUIDCreateString(NULL, uuidRef);
 	CFRelease(uuidRef);
@@ -35,10 +41,11 @@ static id shared = NULL;
 	return path;
 }
 
-- (void) moveFile:(NSString *)file1 toFile:(NSString *)file2 {
-	if (!file1 || !file2) {
+- (void)moveFile:(NSString *)file1 toFile:(NSString *)file2
+{
+	if (file1 == NULL || file2 == NULL)
 		return;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file1 forKey:@"UBSourceFile"];
 	[info setObject:file2 forKey:@"UBTargetFile"];
@@ -46,10 +53,11 @@ static id shared = NULL;
 	[info release];
 }
 
-- (void) copyFile:(NSString *)file1 toFile:(NSString *)file2 {
-	if (!file1 || !file2) {
+- (void)copyFile:(NSString *)file1 toFile:(NSString *)file2
+{
+	if (file1 == NULL || file2 == NULL)
 		return;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file1 forKey:@"UBSourceFile"];
 	[info setObject:file2 forKey:@"UBTargetFile"];
@@ -57,10 +65,11 @@ static id shared = NULL;
 	[info release];
 }
 
-- (void) symlinkFile:(NSString *)file1 toFile:(NSString *)file2 {
-	if (!file1 || !file2) {
+- (void)symlinkFile:(NSString *)file1 toFile:(NSString *)file2
+{
+	if (file1 == NULL || file2 == NULL)
 		return;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file1 forKey:@"UBSourceFile"];
 	[info setObject:file2 forKey:@"UBTargetFile"];
@@ -68,20 +77,22 @@ static id shared = NULL;
 	[info release];
 }
 
-- (void) deleteFile:(NSString *)file {
-	if (!file) {
+- (void)deleteFile:(NSString *)file
+{
+	if (file == NULL)
 		return;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
 	[center sendMessageAndReceiveReplyName:@"org.h2co3.unbox.delete" userInfo:info];
 	[info release];
 }
 
-- (NSDictionary *) attributesOfFile:(NSString *)file {
-	if (!file) {
-		return NULL;
-	}
+- (NSDictionary *)attributesOfFile:(NSString *)file
+{
+	if (file == NULL)
+		return;
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
 	NSDictionary *reply = [center sendMessageAndReceiveReplyName:@"org.h2co3.unbox.attributes" userInfo:info];
@@ -89,10 +100,11 @@ static id shared = NULL;
 	return reply;
 }
 
-- (NSArray *) contentsOfDirectory:(NSString *)dir {
-	if (!dir) {
+- (NSArray *)contentsOfDirectory:(NSString *)dir
+{
+	if (dir == NULL)
 		return NULL;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:dir forKey:@"UBTargetFile"];
 	NSDictionary *reply = [center sendMessageAndReceiveReplyName:@"org.h2co3.unbox.dircontents" userInfo:info];
@@ -101,10 +113,11 @@ static id shared = NULL;
 	return result;
 }
 
-- (void) chmodFile:(NSString *)file mode:(mode_t)mode {
-	if (!file) {
+- (void)chmodFile:(NSString *)file mode:(mode_t)mode
+{
+	if (file == NULL)
 		return;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
 	NSNumber *modeNumber = [[NSNumber alloc] initWithInt:mode];
@@ -114,10 +127,11 @@ static id shared = NULL;
 	[info release];
 }
 
-- (BOOL) fileExists:(NSString *)file {
-	if (!file) {
+- (BOOL)fileExists:(NSString *)file
+{
+	if (file == NULL)
 		return NO;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
 	NSDictionary *reply = [center sendMessageAndReceiveReplyName:@"org.h2co3.unbox.exists" userInfo:info];
@@ -126,10 +140,11 @@ static id shared = NULL;
 	return result;
 }
 
-- (BOOL) fileIsDirectory:(NSString *)file {
-	if (!file) {
+- (BOOL) fileIsDirectory:(NSString *)file
+{
+	if (file == NULL)
 		return NO;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
 	NSDictionary *reply = [center sendMessageAndReceiveReplyName:@"org.h2co3.unbox.isdir" userInfo:info];
@@ -138,10 +153,11 @@ static id shared = NULL;
 	return result;
 }
 
-- (void) createDirectory:(NSString *)dir {
-	if (!dir) {
+- (void) createDirectory:(NSString *)dir
+{
+	if (dir == NULL)
 		return;
-	}
+
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:dir forKey:@"UBTargetFile"];
 	[center sendMessageAndReceiveReplyName:@"org.h2co3.unbox.mkdir" userInfo:info];
