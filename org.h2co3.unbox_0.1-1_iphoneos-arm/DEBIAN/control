@@ -1,9 +1,0 @@
-Package: org.h2co3.unbox
-Name: Unbox
-Version: 0.1-1
-Section: Development
-Architecture: iphoneos-arm
-Description: Access the whole filesystem as root from any - even from a sandboxed - application!
-Depiction: http://github.com/H2CO3/Unbox
-Author: Arpad Goretity (H2CO3) <arpad.goretity@gmail.com>
-Maintainer: Arpad Goretity (H2CO3) <arpad.goretity@gmail.com>
