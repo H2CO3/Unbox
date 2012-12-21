@@ -14,7 +14,6 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <AppSupport/CPDistributedMessagingCenter.h>
 
-
 @interface UBClient: NSObject {
 	CPDistributedMessagingCenter *center;
 }
@@ -34,4 +33,3 @@
 - (void)createDirectory:(NSString *)dir;
 
 @end
-
