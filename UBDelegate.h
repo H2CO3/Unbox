@@ -25,4 +25,3 @@
 - (void)dummy;
 
 @end
-

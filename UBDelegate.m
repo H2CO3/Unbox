@@ -10,9 +10,9 @@
 
 @implementation UBDelegate
 
-- (id) init {
-	if ((self = [super init]))
-	{
+- (id) init
+{
+	if ((self = [super init])) {
 		center = [CPDistributedMessagingCenter centerNamed:@"org.h2co3.unbox"];
 		[center registerForMessageName:@"org.h2co3.unbox.move" target:self selector:@selector(handleMessageNamed:userInfo:)];
 		[center registerForMessageName:@"org.h2co3.unbox.copy" target:self selector:@selector(handleMessageNamed:userInfo:)];
@@ -36,7 +36,7 @@
 	[super dealloc];
 }
 
-- (NSDictionary *) handleMessageNamed:(NSString *)name userInfo:(NSDictionary *)info
+- (NSDictionary *)handleMessageNamed:(NSString *)name userInfo:(NSDictionary *)info
 {
 	NSString *sourceFile = [info objectForKey:@"UBSourceFile"];
 	NSString *targetFile = [info objectForKey:@"UBTargetFile"];
@@ -58,9 +58,9 @@
 		[result setDictionary:[fileManager attributesOfItemAtPath:targetFile error:NULL]];
 	} else if ([name isEqualToString:@"org.h2co3.unbox.dircontents"]) {
 		NSArray *contents = [fileManager contentsOfDirectoryAtPath:targetFile error:NULL];
-		if (contents)
+		if (contents) {
 			[result setObject:contents forKey:@"UBDirContents"];
-
+		}
 	} else if ([name isEqualToString:@"org.h2co3.unbox.chmod"]) {
 		chmod(target, mode);
 	} else if ([name isEqualToString:@"org.h2co3.unbox.exists"]) {
@@ -76,7 +76,7 @@
 		[result setObject:num forKey:@"UBIsDirectory"];
 		[num release];
 	} else if ([name isEqualToString:@"org.h2co3.unbox.mkdir"]) {
-		[fileManager createDirectoryAtPath:targetFile withIntermediateDirectories:YES attributes:NULL error:NULL];
+		[fileManager createDirectoryAtPath:targetFile withIntermediateDirectories:YES attributes:nil error:NULL];
 	}
 
 	return result;
@@ -88,4 +88,3 @@
 }
 
 @end
-

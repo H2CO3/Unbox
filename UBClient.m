@@ -8,23 +8,21 @@
 
 #import "UBClient.h"
 
-
-static id shared = NULL;
-
 @implementation UBClient
 
 + (id)sharedInstance
 {
-	if (shared == NULL)
+	static id shared = nil;
+	if (shared == nil) {
 		shared = [[self alloc] init];
+	}
 
 	return shared;
 }
 
 - (id)init
 {
-	if ((self = [super init]))
-	{
+	if ((self = [super init])) {
 		center = [CPDistributedMessagingCenter centerNamed:@"org.h2co3.unbox"];
 	}
 
@@ -43,8 +41,9 @@ static id shared = NULL;
 
 - (void)moveFile:(NSString *)file1 toFile:(NSString *)file2
 {
-	if (file1 == NULL || file2 == NULL)
+	if (file1 == nil || file2 == nil) {
 		return;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file1 forKey:@"UBSourceFile"];
@@ -55,8 +54,9 @@ static id shared = NULL;
 
 - (void)copyFile:(NSString *)file1 toFile:(NSString *)file2
 {
-	if (file1 == NULL || file2 == NULL)
+	if (file1 == nil || file2 == nil) {
 		return;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file1 forKey:@"UBSourceFile"];
@@ -67,8 +67,9 @@ static id shared = NULL;
 
 - (void)symlinkFile:(NSString *)file1 toFile:(NSString *)file2
 {
-	if (file1 == NULL || file2 == NULL)
+	if (file1 == nil || file2 == nil) {
 		return;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file1 forKey:@"UBSourceFile"];
@@ -79,8 +80,9 @@ static id shared = NULL;
 
 - (void)deleteFile:(NSString *)file
 {
-	if (file == NULL)
+	if (file == nil) {
 		return;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
@@ -90,8 +92,9 @@ static id shared = NULL;
 
 - (NSDictionary *)attributesOfFile:(NSString *)file
 {
-	if (file == NULL)
-		return;
+	if (file == nil) {
+		return nil;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
@@ -102,8 +105,9 @@ static id shared = NULL;
 
 - (NSArray *)contentsOfDirectory:(NSString *)dir
 {
-	if (dir == NULL)
-		return NULL;
+	if (dir == nil) {
+		return nil;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:dir forKey:@"UBTargetFile"];
@@ -115,8 +119,9 @@ static id shared = NULL;
 
 - (void)chmodFile:(NSString *)file mode:(mode_t)mode
 {
-	if (file == NULL)
+	if (file == nil) {
 		return;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
@@ -129,8 +134,9 @@ static id shared = NULL;
 
 - (BOOL)fileExists:(NSString *)file
 {
-	if (file == NULL)
+	if (file == nil) {
 		return NO;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
@@ -140,10 +146,11 @@ static id shared = NULL;
 	return result;
 }
 
-- (BOOL) fileIsDirectory:(NSString *)file
+- (BOOL)fileIsDirectory:(NSString *)file
 {
-	if (file == NULL)
+	if (file == nil) {
 		return NO;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:file forKey:@"UBTargetFile"];
@@ -153,10 +160,11 @@ static id shared = NULL;
 	return result;
 }
 
-- (void) createDirectory:(NSString *)dir
+- (void)createDirectory:(NSString *)dir
 {
-	if (dir == NULL)
+	if (dir == nil) {
 		return;
+	}
 
 	NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
 	[info setObject:dir forKey:@"UBTargetFile"];
@@ -165,4 +173,3 @@ static id shared = NULL;
 }
 
 @end
-

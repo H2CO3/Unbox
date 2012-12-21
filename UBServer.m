@@ -8,7 +8,7 @@
 
 #import "UBServer.h"
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	setuid(0);
 	pid_t pid = fork();
@@ -57,4 +57,3 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-
