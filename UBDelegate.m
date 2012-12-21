@@ -10,7 +10,7 @@
 
 @implementation UBDelegate
 
-- (id) init
+- (id)init
 {
 	if ((self = [super init])) {
 		center = [CPDistributedMessagingCenter centerNamed:@"org.h2co3.unbox"];
